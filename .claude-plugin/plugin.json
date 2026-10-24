@@ -1,12 +1,13 @@
 {
-  "name": "blast-radius-win",
-  "version": "0.3.0",
-  "description": "Holds risky Bash and PowerShell commands (rm -rf, Remove-Item -Recurse, git reset --hard, git clean, force push, migrations) and shows what they would change, with Proceed and Cancel buttons. Windows-ready fork of Blast Radius.",
+  "name": "haltline",
+  "displayName": "Haltline",
+  "version": "0.3.1",
+  "description": "Holds risky Bash and PowerShell commands (rm -rf, Remove-Item -Recurse, git reset --hard, git clean, force push, migrations) and shows what they would change, with Proceed and Cancel buttons. A safety net, not a permission system. Windows-ready; based on Blast Radius.",
   "author": {
     "name": "FlyinSteve"
   },
-  "homepage": "https://github.com/FlyinSteve/blast-radius-win",
-  "repository": "https://github.com/FlyinSteve/blast-radius-win",
+  "homepage": "https://github.com/FlyinSteve/haltline",
+  "repository": "https://github.com/FlyinSteve/haltline",
   "license": "Apache-2.0",
   "keywords": [
     "mods",
