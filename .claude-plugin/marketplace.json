@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "haltline",
+      "name": "holdpane",
       "source": "./",
       "description": "Holds risky Bash and PowerShell commands and shows what they would change, with Proceed and Cancel buttons."
     }

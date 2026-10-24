@@ -1,13 +1,13 @@
 {
-  "name": "haltline",
-  "displayName": "Haltline",
-  "version": "0.3.1",
+  "name": "holdpane",
+  "displayName": "Holdpane",
+  "version": "0.3.2",
   "description": "Holds risky Bash and PowerShell commands (rm -rf, Remove-Item -Recurse, git reset --hard, git clean, force push, migrations) and shows what they would change, with Proceed and Cancel buttons. A safety net, not a permission system. Windows-ready; based on Blast Radius.",
   "author": {
     "name": "FlyinSteve"
   },
-  "homepage": "https://github.com/FlyinSteve/haltline",
-  "repository": "https://github.com/FlyinSteve/haltline",
+  "homepage": "https://github.com/FlyinSteve/holdpane",
+  "repository": "https://github.com/FlyinSteve/holdpane",
   "license": "Apache-2.0",
   "keywords": [
     "mods",

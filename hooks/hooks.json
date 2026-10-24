@@ -1,6 +1,6 @@
 {
-  "description": "Haltline: a tool.call hook that holds risky Bash and PowerShell commands, and a Pane that shows what they would change.",
+  "description": "Holdpane: a tool.call hook that holds risky Bash and PowerShell commands, and a Pane that shows what they would change.",
   "modules": [
-    "./haltline.mjs"
+    "./holdpane.mjs"
   ]
 }

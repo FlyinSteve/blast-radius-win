@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Renamed to **Holdpane** (`holdpane`). Uninstall the old name first.
+
 ## 0.3.1
 
 - Renamed from `blast-radius-win` to **Haltline** (`haltline`). Uninstall the old name first.

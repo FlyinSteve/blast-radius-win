@@ -1,7 +1,7 @@
 // Based on Blast Radius from anthropics/claude-code-playground (Apache-2.0,
 // Copyright 2026 Anthropic PBC). Changed for Windows and PowerShell.
 //
-// Haltline: holds a risky Bash or PowerShell command and shows what it would change.
+// Holdpane: holds a risky Bash or PowerShell command and shows what it would change.
 //
 // tool.call (Bash, PowerShell): if the command is risky, work out its blast
 // radius, open a pane with Proceed and Cancel, and hold the call until one is
@@ -26,7 +26,7 @@
 // The host reads `on(...)` and `$.noun.method(...)` from source, so they are
 // spelled literally, and helpers that take `$` are top-level functions.
 
-const PANE_ID = "haltline";
+const PANE_ID = "holdpane";
 const POLL_SECONDS = "0.25";
 const HOLD_LIMIT_MS = 10 * 60 * 1000;
 const STALE_SLACK_MS = 30 * 1000;
@@ -65,7 +65,7 @@ export function register(on) {
 
 /** What the `.catch` answers when the hook itself failed: refuse, unless the command was already let through. */
 function refuse(e, next) {
-  return next.called ? next(e) : { deny: "Haltline hit an error and did not run this command. Do not retry it unless the user asks you to." };
+  return next.called ? next(e) : { deny: "Holdpane hit an error and did not run this command. Do not retry it unless the user asks you to." };
 }
 
 async function hold($, e, next, shell) {
@@ -81,14 +81,14 @@ async function hold($, e, next, shell) {
   const waitStart = since;
   while (held !== null) {
     if (next.signal.aborted) {
-      return { deny: "Haltline held this command and did not run it: the turn was interrupted. Do not retry it unless the user asks you to." };
+      return { deny: "Holdpane held this command and did not run it: the turn was interrupted. Do not retry it unless the user asks you to." };
     }
     if (since - held.since > HOLD_LIMIT_MS + STALE_SLACK_MS) {
       held = null; // the call that claimed it is gone without releasing it
       break;
     }
     if (since - waitStart > HOLD_LIMIT_MS) {
-      return { deny: "Haltline did not run this command: another held command was not answered within 10 minutes. Do not retry it unless the user asks you to." };
+      return { deny: "Holdpane did not run this command: another held command was not answered within 10 minutes. Do not retry it unless the user asks you to." };
     }
     await pause($);
     since = await $.clock.now();
@@ -117,7 +117,7 @@ async function hold($, e, next, shell) {
       : await measure($, risk, cwd);
     summary = mine.report.summary;
 
-    opened = await $.ui.open({ id: PANE_ID, title: "Haltline", focus: true, rows: paneRows(mine.report) });
+    opened = await $.ui.open({ id: PANE_ID, title: "Holdpane", focus: true, rows: paneRows(mine.report) });
     if (!opened.isPlaced) {
       mine.where = "band";
     }
@@ -162,17 +162,17 @@ async function hold($, e, next, shell) {
   }
 
   if (decision === "proceed") {
-    $.ui.toast("Haltline: running it");
+    $.ui.toast("Holdpane: running it");
     return next(e);
   }
   const why = {
     cancel: "the user pressed Cancel",
     timeout: "no answer within 10 minutes",
     interrupted: "the turn was interrupted",
-    error: "Haltline hit an error while holding it",
+    error: "Holdpane hit an error while holding it",
   }[decision] ?? "no answer was recorded";
   return {
-    deny: `Haltline held this command and did not run it: ${why}. It would have: ${summary}. Do not retry it unless the user asks you to.`,
+    deny: `Holdpane held this command and did not run it: ${why}. It would have: ${summary}. Do not retry it unless the user asks you to.`,
   };
 }
 
@@ -237,7 +237,7 @@ async function runBash($, script, args, init) {
   if (t.bash === null) {
     throw new Error("Git's bash was not found, so the paths can't be measured with it");
   }
-  return await $.process.run([t.bash, "-c", script, "haltline", ...args], init);
+  return await $.process.run([t.bash, "-c", script, "holdpane", ...args], init);
 }
 
 // The script has single quotes only and no line breaks that matter, so the command
@@ -1269,7 +1269,7 @@ function draw(t, state) {
     borderColor: "yellow",
     paddingX: 1,
     children: [
-      Box({ key: "title", marginBottom: 1, children: Text({ bold: true, color: "yellow", children: `⚠  Haltline · ${state.risk.label}` }) }),
+      Box({ key: "title", marginBottom: 1, children: Text({ bold: true, color: "yellow", children: `⚠  Holdpane · ${state.risk.label}` }) }),
       Text({ key: "cmd", children: [Text({ dimColor: true, children: "Command  " }), Text({ bold: true, children: state.command })], wrap: "truncate-end" }),
       Text({ key: "sum", children: [Text({ dimColor: true, children: "Would    " }), Text({ color: "red", bold: true, children: report.summary })] }),
       Box({ key: "list", flexDirection: "column", marginTop: 1, children: list }),
