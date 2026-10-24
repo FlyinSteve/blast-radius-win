@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3
+
+- Hooks module: two local variables no longer share the names `on` and `next` with the hook API, so the directory reads every registration plainly. No change in behavior.
+
 ## 0.3.2
 
 - Renamed to **Holdpane** (`holdpane`). Uninstall the old name first.

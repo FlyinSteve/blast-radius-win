@@ -1,7 +1,7 @@
 {
   "name": "holdpane",
   "displayName": "Holdpane",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Holds risky Bash and PowerShell commands (rm -rf, Remove-Item -Recurse, git reset --hard, git clean, force push, migrations) and shows what they would change, with Proceed and Cancel buttons. A safety net, not a permission system. Windows-ready; based on Blast Radius.",
   "author": {
     "name": "FlyinSteve"
