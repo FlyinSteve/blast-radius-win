@@ -1,14 +1,12 @@
-# Haltline
+# Holdpane
 
-*Formerly `blast-radius-win`.*
-
-![Haltline: holds risky Bash and PowerShell commands before they run](docs/social-preview.png)
+![Holdpane: holds risky Bash and PowerShell commands before they run](docs/social-preview.png)
 
 **See what a command will touch, before it runs.** A [Claude Code](https://claude.com/claude-code) mod that holds risky shell commands, shows what they would change, and waits for your Proceed or Cancel. It works for **Bash and PowerShell**, and it is built to run on **Windows**.
 
 When Claude proposes `rm -rf build`, `Remove-Item -Recurse -Force build` or `git reset --hard`, the command stops. A pane opens with the files it would delete, the count and the size. Cancel is pre-selected, so a stray Enter refuses the command. Claude gets the refusal and the reason.
 
-![The Haltline pane holding a Remove-Item -Recurse -Force command: it lists the five files it would delete (about 473 B) and shows Proceed and Cancel, with Cancel pre-selected](docs/pane.png)
+![The Holdpane pane holding a Remove-Item -Recurse -Force command: it lists the five files it would delete (about 402 B) and shows Proceed and Cancel, with Cancel pre-selected](docs/pane.png)
 
 > Based on [Blast Radius](https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods/blast-radius) from `anthropics/claude-code-playground` (Apache-2.0). Not an official Anthropic product. See [what changed](#what-is-different-from-the-original).
 
@@ -17,20 +15,18 @@ When Claude proposes `rm -rf build`, `Remove-Item -Recurse -Force build` or `git
 In a terminal session of Claude Code:
 
 ```
-/plugin install haltline --marketplace FlyinSteve/haltline
+/plugin install holdpane --marketplace FlyinSteve/holdpane
 ```
 
 Answer `y` to add the marketplace, then pick a scope (user scope loads it in every session). From a shell:
 
 ```
-claude plugin install haltline --marketplace FlyinSteve/haltline
+claude plugin install holdpane --marketplace FlyinSteve/holdpane
 ```
 
-In the desktop app, where `/plugin` does not run: click **+** next to the prompt box, then **Plugins**, **Add marketplace** with `FlyinSteve/haltline`, then **Add plugin**.
+In the desktop app, where `/plugin` does not run: click **+** next to the prompt box, then **Plugins**, **Add marketplace** with `FlyinSteve/holdpane`, then **Add plugin**.
 
-To remove it: `claude plugin uninstall haltline`.
-
-**Renamed from `blast-radius-win`:** if you installed the old name, remove it first (`claude plugin uninstall blast-radius-win`), or both run and each holds the command. GitHub redirects the old repository address.
+To remove it: `claude plugin uninstall holdpane`.
 
 **Try it:** see [Examples](#examples).
 
@@ -56,7 +52,7 @@ Press `2` to Cancel in each case, and check that Claude reports the refusal.
 | Monitor | the command, read as Bash and as PowerShell |
 | all | command lines over 8000 characters, `-EncodedCommand` and `Remove-Item @splat` are held without being read |
 
-Every other command runs as normal. If a `cd`, `pushd`, `Set-Location` or `git -C` comes first on the line, Haltline measures in that folder.
+Every other command runs as normal. If a `cd`, `pushd`, `Set-Location` or `git -C` comes first on the line, Holdpane measures in that folder.
 
 ## What the pane shows
 
@@ -71,7 +67,7 @@ Every other command runs as normal. If a `cd`, `pushd`, `Set-Location` or `git -
 
 ## What it runs and what it sends
 
-While it measures, Haltline starts only these programs, and only to read: `git` (status, diff, log, `clean -n`, `rev-parse`), Git's `bash`, `find`, `du` and `sleep`, and `powershell.exe` (`pwsh` on macOS and Linux). It sends nothing anywhere: there is no network access, no telemetry, and it stores nothing. A command you answer Proceed to is run by Claude Code, not by Haltline.
+While it measures, Holdpane starts only these programs, and only to read: `git` (status, diff, log, `clean -n`, `rev-parse`), Git's `bash`, `find`, `du` and `sleep`, and `powershell.exe` (`pwsh` on macOS and Linux). It sends nothing anywhere: there is no network access, no telemetry, and it stores nothing. A command you answer Proceed to is run by Claude Code, not by Holdpane.
 
 ## What is different from the original
 
@@ -109,15 +105,15 @@ Known limits:
 
 ## Support
 
-Questions, bugs, and commands that should have been held: [open an issue](https://github.com/FlyinSteve/haltline/issues). Security problems: see [SECURITY.md](SECURITY.md). To help, see [CONTRIBUTING.md](CONTRIBUTING.md); changes are listed in [CHANGELOG.md](CHANGELOG.md).
+Questions, bugs, and commands that should have been held: [open an issue](https://github.com/FlyinSteve/holdpane/issues). Security problems: see [SECURITY.md](SECURITY.md). To help, see [CONTRIBUTING.md](CONTRIBUTING.md); changes are listed in [CHANGELOG.md](CHANGELOG.md).
 
 ## Deutsch (Kurzfassung)
 
-**Haltline** (früher `blast-radius-win`, deinstalliere den alten Namen zuerst) hält riskante Befehle an, bevor sie laufen, und zeigt, was sie treffen würden: `rm -rf`, `Remove-Item -Recurse -Force`, `git reset --hard`, `git clean`, Force-Push und Migrationen. In einer Pane siehst du die betroffenen Dateien mit Anzahl und Größe und entscheidest mit **Proceed** oder **Cancel**. Cancel ist vorausgewählt (Taste 2); Proceed hat bewusst keine Taste.
+**Holdpane** hält riskante Befehle an, bevor sie laufen, und zeigt, was sie treffen würden: `rm -rf`, `Remove-Item -Recurse -Force`, `git reset --hard`, `git clean`, Force-Push und Migrationen. In einer Pane siehst du die betroffenen Dateien mit Anzahl und Größe und entscheidest mit **Proceed** oder **Cancel**. Cancel ist vorausgewählt (Taste 2); Proceed hat bewusst keine Taste.
 
 Gegenüber dem Original (macOS/Linux) funktioniert es mit **Bash und PowerShell unter Windows**: Es findet Git-Bash, `find` und `du` selbst, misst PowerShell-Löschungen nativ (Umlaute, Junctions, `C:\`-Pfade), liest auch mehrzeilige und verschachtelte Befehle und **lehnt einen Befehl ab, wenn der Mod selbst einen Fehler hat**. Die Messung liest nur: Sie führt keine Werkzeuge deines Projekts aus, bevor du geantwortet hast.
 
-Installation im Claude-Code-Terminal: `/plugin install haltline --marketplace FlyinSteve/haltline`
+Installation im Claude-Code-Terminal: `/plugin install holdpane --marketplace FlyinSteve/holdpane`
 
 Es startet nur `git`, `bash`, `find`, `du`, `sleep` und `powershell.exe`, liest nur, sendet nichts und speichert nichts. Es ist ein Sicherheitsnetz, kein Berechtigungssystem: Harte Sperren gehören in die Permission-Regeln. Die Grenzen stehen oben unter *Known limits*.
 

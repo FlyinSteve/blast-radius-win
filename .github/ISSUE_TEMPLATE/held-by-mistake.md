@@ -12,4 +12,4 @@ labels: false-positive
 
 **What it should have done**
 
-**Versions**: Haltline, Claude Code, Windows, Git
+**Versions**: Holdpane, Claude Code, Windows, Git

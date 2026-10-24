@@ -14,4 +14,4 @@ If the command ran **after you pressed Cancel**, or the hold failed open, do not
 
 **Is it listed under "Known limits" in the README?** yes / no / not sure
 
-**Versions**: Haltline, Claude Code, Windows, Git
+**Versions**: Holdpane, Claude Code, Windows, Git

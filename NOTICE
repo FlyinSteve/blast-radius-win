@@ -1,11 +1,11 @@
-Haltline (formerly blast-radius-win)
+Holdpane
 Copyright 2026 FlyinSteve
 
 This work is a modified version of "Blast Radius" from
 https://github.com/anthropics/claude-code-playground (claude-code/mods/blast-radius),
 Copyright 2026 Anthropic PBC, licensed under the Apache License, Version 2.0.
 
-Changes made to the original (see also the header of hooks/haltline.mjs):
+Changes made to the original (see also the header of hooks/holdpane.mjs):
 - a second hook for the PowerShell tool, and one for the Monitor tool;
 - reading PowerShell, cmd.exe and nested shell commands, not only Bash;
 - looking up Git's bash, find, du and sleep on Windows instead of assuming them on PATH;
