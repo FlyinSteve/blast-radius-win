@@ -1,0 +1,16 @@
+{
+  "name": "flyinsteve-mods",
+  "owner": {
+    "name": "FlyinSteve"
+  },
+  "metadata": {
+    "description": "Claude Code mods by FlyinSteve."
+  },
+  "plugins": [
+    {
+      "name": "blast-radius-win",
+      "source": "./",
+      "description": "Holds risky Bash and PowerShell commands and shows what they would change, with Proceed and Cancel buttons."
+    }
+  ]
+}

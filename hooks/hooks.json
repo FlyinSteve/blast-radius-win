@@ -1,0 +1,6 @@
+{
+  "description": "Blast Radius for Windows: a tool.call hook that holds risky Bash and PowerShell commands, and a Pane that shows their blast radius.",
+  "modules": [
+    "./blast-radius.mjs"
+  ]
+}

@@ -1,0 +1,17 @@
+Blast Radius for Windows
+Copyright 2026 FlyinSteve
+
+This work is a modified version of "Blast Radius" from
+https://github.com/anthropics/claude-code-playground (claude-code/mods/blast-radius),
+Copyright 2026 Anthropic PBC, licensed under the Apache License, Version 2.0.
+
+Changes made to the original (see also the header of hooks/blast-radius.mjs):
+- a second hook for the PowerShell tool, and one for the Monitor tool;
+- reading PowerShell, cmd.exe and nested shell commands, not only Bash;
+- looking up Git's bash, find, du and sleep on Windows instead of assuming them on PATH;
+- measuring PowerShell deletions natively, without following junctions or symbolic links;
+- refusing the command when the mod itself fails (a .catch on every hook);
+- measuring that only reads: no project tools are run before the user has answered;
+- a command line reader that handles quotes, comments, heredocs and here-strings.
+
+This is not an official Anthropic product and is not endorsed by Anthropic.
