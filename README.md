@@ -2,27 +2,13 @@
 
 *Formerly `blast-radius-win`.*
 
+![Haltline: holds risky Bash and PowerShell commands before they run](docs/social-preview.png)
+
 **See what a command will touch, before it runs.** A [Claude Code](https://claude.com/claude-code) mod that holds risky shell commands, shows what they would change, and waits for your Proceed or Cancel. It works for **Bash and PowerShell**, and it is built to run on **Windows**.
 
 When Claude proposes `rm -rf build`, `Remove-Item -Recurse -Force build` or `git reset --hard`, the command stops. A pane opens with the files it would delete, the count and the size. Cancel is pre-selected, so a stray Enter refuses the command. Claude gets the refusal and the reason.
 
-```
-╭────────────────────────────────────────────────────────────────╮
-│ ⚠  Haltline · Remove-Item -Recurse -Force                      │
-│                                                                │
-│ Command  Remove-Item -Recurse -Force build                     │
-│ Would    delete 3 files (about 7 B)                            │
-│                                                                │
-│   build/Größe äöü.txt                                          │
-│   build/sub/a.txt                                              │
-│   build/sub/b.txt                                              │
-│ Paths: build. 1 junction or symbolic link folder not followed. │
-│                                                                │
-│ Proceed   Cancel   Claude is waiting on your answer            │
-╰────────────────────────────────────────────────────────────────╯
-```
-
-![The Haltline pane holding a Remove-Item command](docs/pane.png)
+![The Haltline pane holding a Remove-Item -Recurse -Force command: it lists the five files it would delete (about 473 B) and shows Proceed and Cancel, with Cancel pre-selected](docs/pane.png)
 
 > Based on [Blast Radius](https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods/blast-radius) from `anthropics/claude-code-playground` (Apache-2.0). Not an official Anthropic product. See [what changed](#what-is-different-from-the-original).
 
