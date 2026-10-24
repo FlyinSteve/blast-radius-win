@@ -384,11 +384,11 @@ function stripRedirects(segment) {
   let text = segment;
   for (let guard = 0; guard < 50; guard += 1) {
     // Bounded white space keeps this linear-ish on a line of thousands of spaces.
-    const next = text.replace(/\s{0,64}(?:\d*>>?&?|&>>?|<)\s{0,64}[^\s<>&]+\s{0,64}$/, "").replace(/\s{0,64}&\s{0,64}$/, "");
-    if (next === text) {
+    const trimmed = text.replace(/\s{0,64}(?:\d*>>?&?|&>>?|<)\s{0,64}[^\s<>&]+\s{0,64}$/, "").replace(/\s{0,64}&\s{0,64}$/, "");
+    if (trimmed === text) {
       break;
     }
-    text = next;
+    text = trimmed;
   }
   return text;
 }
@@ -821,15 +821,15 @@ function classifyPsSegment(segment, dir, pushed) {
         }
         continue;
       }
-      const on = p.value === undefined ? true : !/^\$?false$/i.test(p.value);
+      const enabled = p.value === undefined ? true : !/^\$?false$/i.test(p.value);
       if (isParam(p.name, "recurse", 1)) {
-        recurse = on;
+        recurse = enabled;
         flags.push(args[i].raw);
       } else if (isParam(p.name, "force", 2)) {
-        force = on;
+        force = enabled;
         flags.push(args[i].raw);
       } else if (isParam(p.name, "whatif", 2)) {
-        whatIf = on;
+        whatIf = enabled;
       } else if (isParam(p.name, "path", 2) || isParam(p.name, "literalpath", 1)) {
         const lit = isParam(p.name, "literalpath", 1);
         const parts = p.value !== undefined ? psValueParts(p.value) : (args[i + 1]?.parts ?? []);
