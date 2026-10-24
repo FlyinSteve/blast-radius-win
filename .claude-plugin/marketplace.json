@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "blast-radius-win",
+      "name": "haltline",
       "source": "./",
       "description": "Holds risky Bash and PowerShell commands and shows what they would change, with Proceed and Cancel buttons."
     }

@@ -1,6 +1,6 @@
 {
-  "description": "Blast Radius for Windows: a tool.call hook that holds risky Bash and PowerShell commands, and a Pane that shows their blast radius.",
+  "description": "Haltline: a tool.call hook that holds risky Bash and PowerShell commands, and a Pane that shows what they would change.",
   "modules": [
-    "./blast-radius.mjs"
+    "./haltline.mjs"
   ]
 }

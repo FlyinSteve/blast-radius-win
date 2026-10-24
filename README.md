@@ -1,4 +1,6 @@
-# Blast Radius for Windows
+# Haltline
+
+*Formerly `blast-radius-win`.*
 
 **See what a command will touch, before it runs.** A [Claude Code](https://claude.com/claude-code) mod that holds risky shell commands, shows what they would change, and waits for your Proceed or Cancel. It works for **Bash and PowerShell**, and it is built to run on **Windows**.
 
@@ -6,7 +8,8 @@ When Claude proposes `rm -rf build`, `Remove-Item -Recurse -Force build` or `git
 
 ```
 ╭────────────────────────────────────────────────────────────────╮
-│ ⚠ Blast Radius · Remove-Item -Recurse -Force                   │
+│ ⚠  Haltline · Remove-Item -Recurse -Force                      │
+│                                                                │
 │ Command  Remove-Item -Recurse -Force build                     │
 │ Would    delete 3 files (about 7 B)                            │
 │                                                                │
@@ -19,6 +22,8 @@ When Claude proposes `rm -rf build`, `Remove-Item -Recurse -Force build` or `git
 ╰────────────────────────────────────────────────────────────────╯
 ```
 
+![The Haltline pane holding a Remove-Item command](docs/pane.png)
+
 > Based on [Blast Radius](https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods/blast-radius) from `anthropics/claude-code-playground` (Apache-2.0). Not an official Anthropic product. See [what changed](#what-is-different-from-the-original).
 
 ## Install
@@ -26,22 +31,34 @@ When Claude proposes `rm -rf build`, `Remove-Item -Recurse -Force build` or `git
 In a terminal session of Claude Code:
 
 ```
-/plugin install blast-radius-win --marketplace FlyinSteve/blast-radius-win
+/plugin install haltline --marketplace FlyinSteve/haltline
 ```
 
 Answer `y` to add the marketplace, then pick a scope (user scope loads it in every session). From a shell:
 
 ```
-claude plugin install blast-radius-win --marketplace FlyinSteve/blast-radius-win
+claude plugin install haltline --marketplace FlyinSteve/haltline
 ```
 
-In the desktop app, where `/plugin` does not run: click **+** next to the prompt box, then **Plugins**, **Add marketplace** with `FlyinSteve/blast-radius-win`, then **Add plugin**.
+In the desktop app, where `/plugin` does not run: click **+** next to the prompt box, then **Plugins**, **Add marketplace** with `FlyinSteve/haltline`, then **Add plugin**.
 
-To remove it: `claude plugin uninstall blast-radius-win`.
+To remove it: `claude plugin uninstall haltline`.
 
-**Try it:** in a throwaway folder, ask Claude to delete a folder with `rm -rf` or `Remove-Item -Recurse -Force`.
+**Renamed from `blast-radius-win`:** if you installed the old name, remove it first (`claude plugin uninstall blast-radius-win`), or both run and each holds the command. GitHub redirects the old repository address.
+
+**Try it:** see [Examples](#examples).
 
 **Using the pane:** press `2` to Cancel, or click Proceed (or Tab to it and press Enter). Proceed has no hotkey on purpose, so a typed `1` can never run a command. No answer within 10 minutes refuses the command, and so does interrupting the turn (Esc).
+
+## Examples
+
+In a throwaway folder (a copy of a project is fine), ask Claude:
+
+- "Delete the `build` folder with `rm -rf build`." On PowerShell: "Delete the `build` folder with `Remove-Item -Recurse -Force build`."
+- "Run `git reset --hard` to throw away my uncommitted changes." The pane lists the files with uncommitted changes.
+- "Run `git clean -fd` to remove everything untracked." The pane lists what `git clean -n` would remove.
+
+Press `2` to Cancel in each case, and check that Claude reports the refusal.
 
 ## What it holds
 
@@ -53,7 +70,7 @@ To remove it: `claude plugin uninstall blast-radius-win`.
 | Monitor | the command, read as Bash and as PowerShell |
 | all | command lines over 8000 characters, `-EncodedCommand` and `Remove-Item @splat` are held without being read |
 
-Every other command runs as normal. If a `cd`, `pushd`, `Set-Location` or `git -C` comes first on the line, Blast Radius measures in that folder.
+Every other command runs as normal. If a `cd`, `pushd`, `Set-Location` or `git -C` comes first on the line, Haltline measures in that folder.
 
 ## What the pane shows
 
@@ -65,6 +82,10 @@ Every other command runs as normal. If a `cd`, `pushd`, `Set-Location` or `git -
 | `git push --force` | the commits on the remote branch that your branch doesn't have (from your last fetch) |
 | migrations | the tool's own status command to check by hand (see [below](#measuring-only-reads)) |
 | anything it cannot measure | an honest note instead of a guess: variables, `( )` expressions, `%VAR%`, network paths and `del /s` are reported as *not measurable*, never as "deletes nothing" |
+
+## What it runs and what it sends
+
+While it measures, Haltline starts only these programs, and only to read: `git` (status, diff, log, `clean -n`, `rev-parse`), Git's `bash`, `find`, `du` and `sleep`, and `powershell.exe` (`pwsh` on macOS and Linux). It sends nothing anywhere: there is no network access, no telemetry, and it stores nothing. A command you answer Proceed to is run by Claude Code, not by Haltline.
 
 ## What is different from the original
 
@@ -100,16 +121,20 @@ Known limits:
 - `git` and `powershell.exe` are found through PATH, not by fixed paths.
 - Without a user interface (`claude -p`), a held command waits the full 10 minutes.
 
+## Support
+
+Questions, bugs, and commands that should have been held: [open an issue](https://github.com/FlyinSteve/haltline/issues). Security problems: see [SECURITY.md](SECURITY.md). To help, see [CONTRIBUTING.md](CONTRIBUTING.md); changes are listed in [CHANGELOG.md](CHANGELOG.md).
+
 ## Deutsch (Kurzfassung)
 
-**Blast Radius für Windows** hält riskante Befehle an, bevor sie laufen, und zeigt, was sie treffen würden: `rm -rf`, `Remove-Item -Recurse -Force`, `git reset --hard`, `git clean`, Force-Push und Migrationen. In einer Pane siehst du die betroffenen Dateien mit Anzahl und Größe und entscheidest mit **Proceed** oder **Cancel**. Cancel ist vorausgewählt (Taste 2); Proceed hat bewusst keine Taste.
+**Haltline** (früher `blast-radius-win`, deinstalliere den alten Namen zuerst) hält riskante Befehle an, bevor sie laufen, und zeigt, was sie treffen würden: `rm -rf`, `Remove-Item -Recurse -Force`, `git reset --hard`, `git clean`, Force-Push und Migrationen. In einer Pane siehst du die betroffenen Dateien mit Anzahl und Größe und entscheidest mit **Proceed** oder **Cancel**. Cancel ist vorausgewählt (Taste 2); Proceed hat bewusst keine Taste.
 
 Gegenüber dem Original (macOS/Linux) funktioniert es mit **Bash und PowerShell unter Windows**: Es findet Git-Bash, `find` und `du` selbst, misst PowerShell-Löschungen nativ (Umlaute, Junctions, `C:\`-Pfade), liest auch mehrzeilige und verschachtelte Befehle und **lehnt einen Befehl ab, wenn der Mod selbst einen Fehler hat**. Die Messung liest nur: Sie führt keine Werkzeuge deines Projekts aus, bevor du geantwortet hast.
 
-Installation im Claude-Code-Terminal: `/plugin install blast-radius-win --marketplace FlyinSteve/blast-radius-win`
+Installation im Claude-Code-Terminal: `/plugin install haltline --marketplace FlyinSteve/haltline`
 
-Es ist ein Sicherheitsnetz, kein Berechtigungssystem: Harte Sperren gehören in die Permission-Regeln. Die Grenzen stehen oben unter *Known limits*.
+Es startet nur `git`, `bash`, `find`, `du`, `sleep` und `powershell.exe`, liest nur, sendet nichts und speichert nichts. Es ist ein Sicherheitsnetz, kein Berechtigungssystem: Harte Sperren gehören in die Permission-Regeln. Die Grenzen stehen oben unter *Known limits*.
 
 ## License and credits
 
-Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). Based on Blast Radius, Copyright 2026 Anthropic PBC, from [anthropics/claude-code-playground](https://github.com/anthropics/claude-code-playground). Modifications Copyright 2026 FlyinSteve. Not affiliated with or endorsed by Anthropic. Git is a trademark of Software Freedom Conservancy; PowerShell and Windows are trademarks of Microsoft.
+Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). Based on "Blast Radius", Copyright 2026 Anthropic PBC, from [anthropics/claude-code-playground](https://github.com/anthropics/claude-code-playground). Modifications Copyright 2026 FlyinSteve. Not affiliated with or endorsed by Anthropic. Git is a trademark of Software Freedom Conservancy; PowerShell and Windows are trademarks of Microsoft.
